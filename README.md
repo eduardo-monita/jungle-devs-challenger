@@ -39,20 +39,20 @@ To configure the container you will need to access it, so pay attention to which
 - Finnaly the project is running, so open this link in your browser: [http://localhost:9100/](http://localhost:9100/ "http://localhost:9100/")
         
 ## Endpoints
-For more information about endpoints, you can go to `/ swwagger /` or `/ redoc /`.
+For more information about endpoints, you can go to `/ swwagger /` or `/ redoc /`. Note: in swagger dont't show `/api/`.
 Endpoints |HTTP | Results
 -- | -- |-- 
 `/login/` | POST | Check the credentials and return the REST Token
 `/sign-up/` | GET,POST | Calls Django logout method and delete the Token object assigned to the current User object
-`/articles/?category=:slug` | GET | List all articles
-`/articles/:id/` | GET | Article Detail
-`/admin/authors/` | GET,POST | List and Create authors
-`/admin/authors/:id` | GET,PUT,PATCH,DELETE | Reads, update and delete author
-`/admin/articles/` | GET,POST | List and Create articles
-`/admin/articles/:id` | GET,PUT,PATCH,DELETE | Reads, update and delete articles
+`/api/password/change/` | POST | Calls Django Auth SetPasswordForm save method
+`/api/user/` | GET,PUT,PACTH | Reads and update django user
+`/api/admin/authors/` | GET,POST | List and Create authors
+`/api/admin/authors/:id` | GET,PUT,PATCH,DELETE | Reads, update and delete author
+`/api/admin/articles/` | GET,POST | List and Create articles
+`/api/admin/articles/:id` | GET,PUT,PATCH,DELETE | Reads, update and delete articles
+`/api/articles/?category=:slug` | GET | List all articles
+`/api/articles/:id/` | GET | Article Detail
 `/admin/` | GET | To access Django's default administrator
-`/password/change/` | POST | Calls Django Auth SetPasswordForm save method
-`/user/` | GET,PUT,PACTH | Reads and update django user
 `/swwagger/` | GET | API documantation
 `/redoc/` | GET | API documantation
 
