@@ -39,11 +39,11 @@ To configure the container you will need to access it, so pay attention to which
 - Finnaly the project is running, so open this link in your browser: [http://localhost:9100/](http://localhost:9100/ "http://localhost:9100/")
         
 ## Endpoints
-For more information about endpoints, you can go to `/ swwagger /` or `/ redoc /`. Note: in swagger dont't show `/api/`.
+For more information about endpoints, you can go to `/ swwagger /` or `/ redoc /`. Note: base url from swagger is `/api/`.
 Endpoints |HTTP | Results
 -- | -- |-- 
-`/login/` | POST | Check the credentials and return the REST Token
-`/sign-up/` | GET,POST | Calls Django logout method and delete the Token object assigned to the current User object
+`/api/login/` | POST | Check the credentials and return the REST Token
+`/api/sign-up/` | GET,POST | Calls Django logout method and delete the Token object assigned to the current User object
 `/api/password/change/` | POST | Calls Django Auth SetPasswordForm save method
 `/api/user/` | GET,PUT,PACTH | Reads and update django user
 `/api/admin/authors/` | GET,POST | List and Create authors
