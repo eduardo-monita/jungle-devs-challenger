@@ -61,5 +61,5 @@ Endpoints |HTTP | Results
 
         python manage.py test
         
-## Image Optimization
+## Image optimization
 This project use library `autocrop` from pypi to perform face detection crop to field picture in author, you can read more about this library cliking [here](https://github.com/leblancfg/autocrop "here").
