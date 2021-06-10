@@ -1,0 +1,41 @@
+version: "3.9"
+   
+services:  
+  web:
+    build: .
+    container_name: jungle-devs-challenger-web-dev
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./app:/app
+    ports:
+      - "8080:8000"
+    env_file:
+      - ./.env.web.dev
+    restart: on-failure
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - jungle-devs-challenger
+
+  db:
+    image: postgres:13
+    container_name: jungle-devs-challenger-db-dev
+    volumes:
+      - ./data/db-dev:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    env_file:
+    - ./.env.db.dev
+    networks:
+      - jungle-devs-challenger
+
+networks:
+  jungle-devs-challenger:
+    name: jungle-devs-challenger-dev
+    driver: bridge
