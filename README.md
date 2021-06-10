@@ -1,5 +1,5 @@
 # jungle-devs-challenger
-The purpose of this challenge is to give an overall understanding of a backend application. You’ll be implementing a simplified version of a news provider API.
+The purpose of this challenge is to give an overall understanding of a backend application. It will be implementing a simplified version of a news provider API.
 
 ## Requirement
 If you want to run the project, first make sure you have the docker installed on your computer. If not, you can get it by clicking [here](https://docs.docker.com/get-docker/ "here").
