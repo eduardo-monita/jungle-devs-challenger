@@ -11,6 +11,7 @@ from posts.models import Author, Article
 from posts.serializers import (
     AdminAuthorSerializer, 
     AdminArticleSerializer,
+    AdminArticleGETSerializer,
     ArticleSerializer,
 )
 
@@ -22,13 +23,21 @@ class AdminAuthorViewSet(viewsets.ModelViewSet):
 
 @permission_classes([IsAdminUser])
 class AdminArticleViewSet(viewsets.ModelViewSet):
-    queryset = Article.objects.filter(active=True)
+    queryset = Article.objects.filter(author__active=True, active=True)
     serializer_class = AdminArticleSerializer
     http_method_names = ['get', 'post', 'put', 'patch', 'delete']
 
+    def list(self, request):
+        try:
+            queryset = self.filter_queryset(self.get_queryset())
+            serializer = AdminArticleGETSerializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({'error' : str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 @permission_classes([AllowAny])
 class ArticleViewSet(viewsets.ModelViewSet):
-    queryset = Article.objects.filter(active=True)
+    queryset = Article.objects.filter(author__active=True, active=True)
     serializer_class = ArticleSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['category']

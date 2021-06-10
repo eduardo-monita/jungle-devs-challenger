@@ -10,8 +10,15 @@ class AdminAuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = ['id', 'name', 'picture', 'active','created_at', 'updated_at']
 
-class AdminArticleSerializer(serializers.ModelSerializer):
+class AdminArticleGETSerializer(serializers.ModelSerializer):
     author = AdminAuthorSerializer(many=False, required=True)
+
+    class Meta:
+        model = Article
+        fields = ['id', 'title', 'category', 'summary', 'author', 'active', 'first_paragraph', \
+                  'body', 'created_at', 'updated_at']
+
+class AdminArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
