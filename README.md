@@ -1,68 +1,65 @@
-# docker-python-django
-Meu projeto de referência utilizando Docker com aplicações em Django
+# jungle-devs-challenger
+The purpose of this challenge is to give an overall understanding of a backend application. You’ll be implementing a simplified version of a news provider API.
 
-## Dependencias
-- Se você deseja executar o projeto, primeiro certifique-se de ter o docker instalado em seu computador. Se não, você pode obte-lo cliquando [aqui](https://docs.docker.com/get-docker/ "aqui").
+## Requirement
+If you want to run the project, first make sure you have the docker installed on your computer. If not, you can get it by clicking [here](https://docs.docker.com/get-docker/ "here").
 
-- Logo em seguida, Git clone este repositório para o seu PC
+Soon after, clone this repository to your computer and enter the project root folder:
 
-        git clone https://github.com/eduardo-monita/docker-python-django.git
+      git clone https://github.com/eduardo-monita/jungle-devs-challenger.git
+      cd jungle-devs-challenger
         
-### Instalação (Desenvolvimento)
-- Para instalação do projeto, seguindo os pré-requisitos, basta possuir o Docker instalado na máquina na versão mais atualizada possível.
+## Run project 
+Once you are at the root of the project you need to run the following commands to run the project:
 
-- Após baixado o projeto, basta construir o container no local que estiver presente o arquivo `docker-compose.yml` com o seguinte comando:
-
-        docker-compose build
-- Com isso, você conseguirá subir o container em sua máquina com o seguinte comando:
-
-        docker-compose up -d
-- Após esses passos, a instalação do container foi finalizada e podemos preparar para realizar as seguintes instruções para configuração do projeto no novo container.
-
-- Obs: Para para o container, segue o seguinte comando: `docker-compose down` 
-
-## Configuração do container (Desenvolvimento)
-- Para a configuração do container, será necessário acessá-lo, os comandos abaixo fora do container comprometerá o funcionamento adequado da sua própria máquina, o contrário também é verídico, por isso, atenção sobre qual ambiente você está localizado.
-
-        docker exec -it docker-python-django-web-dev sh
-        python manage.py migrate
-        python manage.py collectstatic --no-input
-        python manage.py createsuperuser
+### Development
+Docker Compose to Development
+- `docker-compose build` (build your containers). Note: Only needed for the first time running the project.
+- `docker-compose up -d` (start runing containers). Note: The first time you run the command it will start creating the database, so it may take a little longer than usual.
+- Note: To remove containers, follow the following command: `docker-compose down` (remove up containers)
+#### Container configuration
+To configure the container you will need to access it, so pay attention to which environment you are in (will show something like this on your terminal `root@b81a9b80611a:/app#`).
+- `docker exec -it jungle-devs-challenger-web-dev bash` (Access web container)
+- `python manage.py migrate` (Generate all database tables)
+- `python manage.py collectstatic --no-input` (Download all static files)
+- `python manage.py createsuperuser` (creates a user to access in /admin and in other API)
+- Finnaly the project is running, so open this link in your browser: [http://localhost:8080/](http://localhost:8080/ "http://localhost:8080/")
+   
+### Production
+Docker Compose to Production
+- `docker-compose -f docker-compose.prd.yml build` (build your containers). Note: Only needed for the first time running the project.
+- `docker-compose -f docker-compose.prd.yml up -d` (start runing containers). Note: The first time you run the command it will start creating the database, so it may take a little longer than usual.
+- Note: To remove containers, follow the following command: `docker-compose -f docker-compose.prd.yml down` (remove up containers)
+#### Container configuration
+To configure the container you will need to access it, so pay attention to which environment you are in (will show something like this on your terminal `root@b81a9b80611a:/app#`).
+- `docker exec -it jungle-devs-challenger-web-prd bash` (Access web container)
+- `python manage.py migrate` (Generate all database tables)
+- `python manage.py collectstatic --no-input` (Download all static files)
+- `python manage.py createsuperuser` (creates a user to access in /admin and in other API)
+- Finnaly the project is running, so open this link in your browser: [http://localhost:9100/](http://localhost:9100/ "http://localhost:9100/")
         
-## Executá-lo (Desenvolvimento)
-- Agora você pode acessar o serviço API de arquivo em seu navegador usando:
+## Endpoints
+For more information about endpoints, you can go to `/ swwagger /` or `/ redoc /`.
+Endpoints |HTTP | Results
+-- | -- |-- 
+`/login/` | POST | Check the credentials and return the REST Token
+`/sign-up/` | GET,POST | Calls Django logout method and delete the Token object assigned to the current User object
+`/articles/?category=:slug` | GET | List all articles
+`/articles/:id/` | GET | Article Detail
+`/admin/authors/` | GET,POST | List and Create authors
+`/admin/authors/:id` | GET,PUT,PATCH,DELETE | Reads, update and delete author
+`/admin/articles/` | GET,POST | List and Create articles
+`/admin/articles/:id` | GET,PUT,PATCH,DELETE | Reads, update and delete articles
+`/admin/` | GET | To access Django's default administrator
+`/password/change/` | POST | Calls Django Auth SetPasswordForm save method
+`/user/` | GET,PUT,PACTH | Reads and update django user
+`/swwagger/` | GET | API documantation
+`/redoc/` | GET | API documantation
 
-        http://localhost:8080/
-        
-### Instalação (Produção)
-- Para construir o container de produção é necessário especificar o arquivo docker dele (`docker-compose.prd.yml`) com o seguinte comando:
-
-        docker-compose -f docker-compose.prd.yml build
-        docker-compose -f docker-compose.prd.yml up -d
-        
-- Obs: Para para o container, segue o seguinte comando: `docker-compose -f docker-compose.prd.yml down` 
-
-## Configuração do container (Produção)
-- Para a configuração do container, será necessário acessá-lo, os comandos abaixo fora do container comprometerá o funcionamento adequado da sua própria máquina, o contrário também é verídico, por isso, atenção sobre qual ambiente você está localizado.
-
-        docker exec -it docker-python-django-web-prd sh
-        python manage.py migrate
-        python manage.py collectstatic --no-input
-        python manage.py createsuperuser
-        
-## Executá-lo (Produção)
-- Agora você pode acessar o serviço API de arquivo em seu navegador usando:
-
-        http://localhost:9100/
-
-## Testes Unitários
-- Para rodar os exemplos de testes unitários, segue o comando abaixo:
+## Unit test
+- To run the unit test, follow the command below:
 
         python manage.py test
         
-## Rotas
-Rotas |HTTP | Resultado
--- | -- |-- 
-`admin` | GET | Para acessar o admin padrão do próprio Django
-`api/client` | GET | Pegar a lista de clientes
-`api/client/{id}` | GET | Pegar um único cliente em específico
+## Image Optimization
+This project use library `autocrop` from pypi to perform face detection crop to field picture in author, you can read more about this library cliking [here](https://github.com/leblancfg/autocrop "here").
