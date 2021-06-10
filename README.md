@@ -24,6 +24,7 @@ To configure the container you will need to access it, so pay attention to which
 - `python manage.py collectstatic --no-input` (Download all static files)
 - `python manage.py createsuperuser` (creates a user to access in /admin and in other API)
 - Finnaly the project is running, so open this link in your browser: [http://localhost:8080/](http://localhost:8080/ "http://localhost:8080/")
+- Note: To exit the container terminal, run the `exit` command.
    
 ### Production
 Docker Compose to Production
@@ -37,6 +38,7 @@ To configure the container you will need to access it, so pay attention to which
 - `python manage.py collectstatic --no-input` (Download all static files)
 - `python manage.py createsuperuser` (creates a user to access in /admin and in other API)
 - Finnaly the project is running, so open this link in your browser: [http://localhost:9100/](http://localhost:9100/ "http://localhost:9100/")
+- Note: To exit the container terminal, run the `exit` command.
         
 ## Endpoints
 For more information about endpoints, you can go to `/ swwagger /` or `/ redoc /`. Note: base url from swagger is `/api/`.
